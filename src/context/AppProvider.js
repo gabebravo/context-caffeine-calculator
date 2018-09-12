@@ -60,6 +60,12 @@ class AppProvider extends Component {
             Object.assign({...this.state.drinksConsumed }, { [drink]: this.state.drinksConsumed[drink] -= 1 })
             this.setState({ drinksConsumed: newDrinkState, total: this.state.total - this.getQuantity(drink) });
           }
+        }, 
+
+        calculateAllowed: drink => {
+          const [foundDrink] = [...this.state.defaultItems].filter( item => item.name === drink)
+          const allowedQty = Math.floor( ( 500 - this.state.total ) / foundDrink.quantity);
+          return allowedQty < 0 ? 0 : allowedQty; 
         }
       }}>
         {this.props.children}

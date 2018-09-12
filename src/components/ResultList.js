@@ -67,17 +67,19 @@ class ResultList extends Component {
         <List className={classes.list}>
         <AppContext.Consumer>
         { context => (
-          <ListSubheader className={context.state.total > 500 ? classes.stopSub : classes.drinkSub }>
-            <span>Drink On</span>
-            <span>{`Total Caffiene: ${context.state.total}`}</span>
-          </ListSubheader>
-          // {defaultItems.map( (item, index) => (
-          //   <ListItem key={`item-${index}-${item}`} divider className={classes.listItem}>
-          //     <ListItemText className={classes.listTextBox} classes={{ primary: this.props.classes.selected }} primary={item.name} />
-          //     <ListItemText className={classes.listTextBox} classes={{ primary: this.props.classes.selected }} primary={`consumed: ${drinkResults[item.name]}`} />
-          //     <ListItemText className={classes.listTextBox} classes={{ primary: this.props.classes.selected }} primary={`allowed: ${calculateDrinks(item.name)}`} />
-          //   </ListItem>
-          // ))}
+          <div>
+            <ListSubheader className={context.state.total > 500 ? classes.stopSub : classes.drinkSub }>
+              <span>Drink On</span>
+              <span>{`Total Caffiene: ${context.state.total}`}</span>
+            </ListSubheader>
+            {context.state.defaultItems.map( (item, index) => (
+              <ListItem key={`item-${index}-${item}`} divider className={classes.listItem}>
+                <ListItemText className={classes.listTextBox} classes={{ primary: this.props.classes.selected }} primary={item.name} />
+                <ListItemText className={classes.listTextBox} classes={{ primary: this.props.classes.selected }} primary={`consumed: ${context.state.drinksConsumed[item.name]}`} />
+                <ListItemText className={classes.listTextBox} classes={{ primary: this.props.classes.selected }} primary={`allowed: ${context.calculateAllowed(item.name)}`} />
+              </ListItem>
+            ))}
+          </div>
         )}
         </AppContext.Consumer>
         </List>
