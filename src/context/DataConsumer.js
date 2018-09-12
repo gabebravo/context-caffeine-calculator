@@ -1,5 +1,5 @@
 import React from 'react';
-import {ThemeContext} from './DataProvider';
+import {ThemeContext} from './AppProvider';
 
 export default class DataConsumer extends React.Component {
   render() {

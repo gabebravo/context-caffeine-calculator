@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import AppProvider from './context/AppProvider'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import DrinkList from './components/DrinkList'
 import ResultList from './components/ResultList'
@@ -23,87 +24,27 @@ const styles = theme => ({
   }
 });
 
-const defaultItems = [
-  { name: 'Monster Ultra Sunrise', quantity: 150 },
-  { name: 'Black Coffee', quantity: 95 }, 
-  { name: 'Americano', quantity: 77 }, 
-  { name: 'Sugar free NOS', quantity: 260 }, 
-  { name: '5 Hour Energy', quantity: 200 }
-]
-
 class App extends Component {
-  constructor() {
-    super();
-    this.state = { 
-      drinksConsumed: {
-        'Monster Ultra Sunrise': 0, 
-        'Black Coffee': 0, 
-        'Americano': 0, 
-        'Sugar free NOS': 0, 
-        '5 Hour Energy': 0 
-      }, 
-      total: 0
-    };
-  }
-
-  resetApp = () => {
-    this.setState({
-      drinksConsumed: {
-        'Monster Ultra Sunrise': 0, 
-        'Black Coffee': 0, 
-        'Americano': 0, 
-        'Sugar free NOS': 0, 
-        '5 Hour Energy': 0 
-      }, 
-      total: 0
-    })
-  }
-
-  getQuantity = drink => {
-    const [foundDrink] = defaultItems.filter( item => item.name === drink)
-    return foundDrink.quantity;
-  }
-
-  incrementCount = drink => {
-    const newDrinkState = 
-    Object.assign({...this.state.drinksConsumed }, { [drink]: this.state.drinksConsumed[drink] += 1 })
-    this.setState({ drinksConsumed: newDrinkState, total: this.state.total + this.getQuantity(drink) });
-  }
-
-  decrementCount = drink => {
-    if( this.state.drinksConsumed[drink] > 0 ) {
-      const newDrinkState = 
-      Object.assign({...this.state.drinksConsumed }, { [drink]: this.state.drinksConsumed[drink] -= 1 })
-      this.setState({ drinksConsumed: newDrinkState, total: this.state.total - this.getQuantity(drink) });
-    }
-  }
-
-  calculateAllowed = drink => {
-    const [foundDrink] = defaultItems.filter( item => item.name === drink)
-    const allowedQty = Math.floor( ( 500 - this.state.total ) / foundDrink.quantity);
-    return allowedQty < 0 ? 0 : allowedQty; 
-  }
-
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <Grid container spacing={16}>
-          <Grid item sm={12} md={6}>
-            <DrinkList incrementHandler={this.incrementCount} 
-              decrementHandler={this.decrementCount} />
+      <AppProvider>
+        <div className={classes.root}>
+          <CssBaseline />
+          <Grid container spacing={16}>
+            <Grid item sm={12} md={6}>
+              <DrinkList />
+            </Grid>
+            <Grid item sm={12} md={6}>
+              <ResultList />
+            </Grid>
           </Grid>
-          <Grid item sm={12} md={6}>
-            <ResultList drinkResults={this.state.drinksConsumed}
-              totalCaffiene={this.state.total} calculateDrinks={this.calculateAllowed} />
-          </Grid>
-        </Grid>
-        <Button variant="contained" onClick={() => this.resetApp()}
-          className={classes.button}>
-          RESET
-        </Button>
-      </div>
+          {/* <Button variant="contained" onClick={() => this.resetApp()}
+            className={classes.button}>
+            RESET
+          </Button> */}
+        </div>
+      </AppProvider>
     );
   }
 }
