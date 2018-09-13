@@ -52,7 +52,7 @@ class DrinkList extends Component {
     return (
       <Paper className={classes.root}>
         <List className={classes.list}>
-          <ListSubheader className={classes.subheader}>Caffiene Calculator</ListSubheader>
+          <ListSubheader className={classes.subheader}>Caffeine Calculator</ListSubheader>
           <AppContext.Consumer>
           { context => (
             context.state.defaultItems.map( (item, index) => (

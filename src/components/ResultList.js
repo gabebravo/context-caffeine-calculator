@@ -70,7 +70,7 @@ class ResultList extends Component {
           <div>
             <ListSubheader className={context.state.total > 500 ? classes.stopSub : classes.drinkSub }>
               <span>Drink On</span>
-              <span>{`Total Caffiene: ${context.state.total}`}</span>
+              <span>{`Total Caffeine: ${context.state.total}`}</span>
             </ListSubheader>
             {context.state.defaultItems.map( (item, index) => (
               <ListItem key={`item-${index}-${item}`} divider className={classes.listItem}>
