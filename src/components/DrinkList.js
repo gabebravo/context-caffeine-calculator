@@ -58,7 +58,7 @@ class DrinkList extends Component {
             context.state.defaultItems.map( (item, index) => (
               <ListItem key={`item-${index}-${item}`} divider className={classes.listItem}>
                 <ListItemText className={classes.listTextBox} classes={{ primary: this.props.classes.selected }} primary={item.name} />
-                <ListItemText className={classes.listTextBox} classes={{ primary: this.props.classes.selected }} primary={`Caffiene: ${item.quantity}`} />
+                <ListItemText className={classes.listTextBox} classes={{ primary: this.props.classes.selected }} primary={`Caffeine: ${item.quantity}`} />
                 <Icon className={classes.icon} color="primary"
                   onClick={() => context.incrementCount(item.name)}>
                   add_box

@@ -62,7 +62,7 @@ class AppProvider extends Component {
             Object.assign({...this.state.drinksConsumed }, { [drink]: this.state.drinksConsumed[drink] += 1 })
             this.setState({ drinksConsumed: newDrinkState, total: this.state.total + this.getQuantity(drink) });
           } else {
-            this.setState({ snack: { show: true, text: 'you are over the caffiene limit' } })
+            this.setState({ snack: { show: true, text: 'you are over the caffeine limit' } })
           }
         },
       
