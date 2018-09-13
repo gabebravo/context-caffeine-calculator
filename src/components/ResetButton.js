@@ -33,8 +33,8 @@ class ResetButton extends Component {
               open={context.state.snack.show}
               autoHideDuration={1500}
               onClose={() => context.resetSnack()}
-              // TransitionComponent={this.state.Transition}
-              {/* <Slide {...props} direction="down" /> */}
+              /* TransitionComponent={this.state.Transition}
+                <Slide {...props} direction="down" /> */
               ContentProps={{
                 'aria-describedby': 'message-id',
               }}
