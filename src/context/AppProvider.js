@@ -15,7 +15,11 @@ const DEFAULT_STATE = {
     'Sugar free NOS': 0, 
     '5 Hour Energy': 0 
   }, 
-  total: 0
+  total: 0,
+  snack: {
+    show: false,
+    text: ''
+  }
 }
 
 // first we will make a new context
@@ -35,6 +39,10 @@ class AppProvider extends Component {
       <AppContext.Provider value={{
         state: this.state,
 
+        resetSnack: () => {
+          this.setState({ snack: { show: false, text: '' } })
+        },
+
         resetApp: () => {
           this.setState({
             drinksConsumed: {
@@ -49,9 +57,13 @@ class AppProvider extends Component {
         },
       
         incrementCount: drink => {
-          const newDrinkState = 
-          Object.assign({...this.state.drinksConsumed }, { [drink]: this.state.drinksConsumed[drink] += 1 })
-          this.setState({ drinksConsumed: newDrinkState, total: this.state.total + this.getQuantity(drink) });
+          if( this.state.total < 500 ) {
+            const newDrinkState = 
+            Object.assign({...this.state.drinksConsumed }, { [drink]: this.state.drinksConsumed[drink] += 1 })
+            this.setState({ drinksConsumed: newDrinkState, total: this.state.total + this.getQuantity(drink) });
+          } else {
+            this.setState({ snack: { show: true, text: 'you are over the caffiene limit' } })
+          }
         },
       
         decrementCount: drink => {
@@ -59,6 +71,8 @@ class AppProvider extends Component {
             const newDrinkState = 
             Object.assign({...this.state.drinksConsumed }, { [drink]: this.state.drinksConsumed[drink] -= 1 })
             this.setState({ drinksConsumed: newDrinkState, total: this.state.total - this.getQuantity(drink) });
+          } else {
+            this.setState({ snack: { show: true, text: 'you cannot cosume neagtive drinks' } })
           }
         }, 
 

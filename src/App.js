@@ -16,6 +16,7 @@ const styles = theme => ({
 
 class App extends Component {
   render() {
+    // console.log('theme', this.props.theme)
     const { classes } = this.props;
     return (
       <AppProvider>
@@ -36,4 +37,4 @@ class App extends Component {
   }
 }
 
-export default withStyles(styles)(App);
+export default withStyles(styles, { withTheme: true })(App);

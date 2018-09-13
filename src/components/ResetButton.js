@@ -3,6 +3,8 @@ import {AppContext} from '../context/AppProvider'
 import Button from '@material-ui/core/Button'
 import grey from '@material-ui/core/colors/grey'
 import { withStyles } from '@material-ui/core/styles'
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
 
 const styles = theme => ({
   button: {
@@ -22,10 +24,25 @@ class ResetButton extends Component {
     return (
       <AppContext.Consumer>
         { context => (
-          <Button variant="contained" onClick={() => context.resetApp()}
-            className={classes.button}>
-            RESET
-          </Button>
+          <React.Fragment>
+            <Button variant="contained" onClick={() => context.resetApp()}
+              className={classes.button}>
+              RESET
+            </Button>
+            {/* <Slide {...props} direction="down" /> */}
+            <Snackbar
+              open={context.state.snack.show}
+              autoHideDuration={1500}
+              onClose={() => context.resetSnack()}
+              // TransitionComponent={this.state.Transition}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              message={
+                <span id="message-id">{context.state.snack.text}</span>
+              }
+            />
+          </React.Fragment>
         )}
       </AppContext.Consumer>
     )
