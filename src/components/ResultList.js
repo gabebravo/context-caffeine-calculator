@@ -68,7 +68,7 @@ class ResultList extends Component {
         <AppContext.Consumer>
         { context => (
           <div>
-            <ListSubheader className={context.state.total > 500 ? classes.stopSub : classes.drinkSub }>
+            <ListSubheader disableSticky className={context.state.total > 500 ? classes.stopSub : classes.drinkSub }>
               <span>Drink On</span>
               <span>{`Total Caffeine: ${context.state.total}`}</span>
             </ListSubheader>
